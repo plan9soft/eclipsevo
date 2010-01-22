@@ -2780,12 +2780,15 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                                 Select Case Spell(SpellNum).Type
 
                                     Case SPELL_TYPE_ADDHP
+                                        Call SendAnim(Index, SpellNum, n)
                                         Call SetPlayerHP(n, GetPlayerHP(n) + Spell(SpellNum).Data1)
 
                                     Case SPELL_TYPE_ADDMP
+                                        Call SendAnim(Index, SpellNum, n)
                                         Call SetPlayerMP(n, GetPlayerMP(n) + Spell(SpellNum).Data1)
 
                                     Case SPELL_TYPE_ADDSP
+                                        Call SendAnim(Index, SpellNum, n)
                                         Call SetPlayerSP(n, GetPlayerSP(n) + Spell(SpellNum).Data1)
                                 End Select
 
@@ -2802,16 +2805,19 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
 
                                             Damage = (Int(GetPlayerMAGI(Index) / 4) + Spell(SpellNum).Data1) - GetPlayerProtection(n)
                                             If Damage > 0 Then
+                                                Call SendAnim(Index, SpellNum, n)
                                                 Call AttackPlayer(Index, n, Damage)
                                             Else
                                                 Call BattleMsg(Index, "The spell was to weak to hurt " & GetPlayerName(n) & "!", BRIGHTRED, 0)
                                             End If
 
                                         Case SPELL_TYPE_SUBMP
+                                            Call SendAnim(Index, SpellNum, n)
                                             Call SetPlayerMP(n, GetPlayerMP(n) - Spell(SpellNum).Data1)
                                             Call SendMP(n)
 
                                         Case SPELL_TYPE_SUBSP
+                                            Call SendAnim(Index, SpellNum, n)
                                             Call SetPlayerSP(n, GetPlayerSP(n) - Spell(SpellNum).Data1)
                                             Call SendSP(n)
                                     End Select
@@ -2822,12 +2828,15 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                                         Select Case Spell(SpellNum).Type
 
                                             Case SPELL_TYPE_ADDHP
+                                                Call SendAnim(Index, SpellNum, n)
                                                 Call SetPlayerHP(n, GetPlayerHP(n) + Spell(SpellNum).Data1)
 
                                             Case SPELL_TYPE_ADDMP
+                                                Call SendAnim(Index, SpellNum, n)
                                                 Call SetPlayerMP(n, GetPlayerMP(n) + Spell(SpellNum).Data1)
                                                 
                                             Case SPELL_TYPE_ADDSP
+                                                Call SendAnim(Index, SpellNum, n)
                                                 Call SetPlayerSP(n, GetPlayerSP(n) + Spell(SpellNum).Data1)
 
                                         End Select
@@ -2843,12 +2852,15 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                                     Select Case Spell(SpellNum).Type
 
                                         Case SPELL_TYPE_ADDHP
+                                            Call SendAnim(Index, SpellNum, n)
                                             Call SetPlayerHP(n, GetPlayerHP(n) + Spell(SpellNum).Data1)
 
                                         Case SPELL_TYPE_ADDMP
+                                            Call SendAnim(Index, SpellNum, n)
                                             Call SetPlayerMP(n, GetPlayerMP(n) + Spell(SpellNum).Data1)
 
                                         Case SPELL_TYPE_ADDSP
+                                            Call SendAnim(Index, SpellNum, n)
                                             Call SetPlayerSP(n, GetPlayerSP(n) + Spell(SpellNum).Data1)
                                     End Select
 
@@ -2862,12 +2874,15 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                                         Select Case Spell(SpellNum).Type
 
                                             Case SPELL_TYPE_ADDHP
+                                                Call SendAnim(Index, SpellNum, n)
                                                 Call SetPlayerHP(n, GetPlayerHP(n) + Spell(SpellNum).Data1)
 
                                             Case SPELL_TYPE_ADDMP
+                                                Call SendAnim(Index, SpellNum, n)
                                                 Call SetPlayerMP(n, GetPlayerMP(n) + Spell(SpellNum).Data1)
 
                                             Case SPELL_TYPE_ADDSP
+                                                Call SendAnim(Index, SpellNum, n)
                                                 Call SetPlayerSP(n, GetPlayerSP(n) + Spell(SpellNum).Data1)
                                         End Select
 
@@ -2906,15 +2921,18 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                                                     End If
                                                 End If
                                             End If
+                                            Call SendAnim(Index, SpellNum, n)
                                             Call AttackNpc(Index, n, Damage)
                                         Else
                                             Call BattleMsg(Index, "The spell was to weak to hurt " & Trim$(NPC(MapNPC(GetPlayerMap(Index), n).num).Name) & "!", BRIGHTRED, 0)
                                         End If
 
                                     Case SPELL_TYPE_SUBMP
+                                        Call SendAnim(Index, SpellNum, n)
                                         MapNPC(GetPlayerMap(Index), n).MP = MapNPC(GetPlayerMap(Index), n).MP - Spell(SpellNum).Data1
 
                                     Case SPELL_TYPE_SUBSP
+                                        Call SendAnim(Index, SpellNum, n)
                                         MapNPC(GetPlayerMap(Index), n).SP = MapNPC(GetPlayerMap(Index), n).SP - Spell(SpellNum).Data1
                                 End Select
 
@@ -2922,12 +2940,15 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                             Else
                                 Select Case Spell(SpellNum).Type
                                     Case SPELL_TYPE_ADDHP
+                                        Call SendAnim(Index, SpellNum, n)
                                         MapNPC(GetPlayerMap(Index), n).HP = MapNPC(GetPlayerMap(Index), n).HP + Spell(SpellNum).Data1
 
                                     Case SPELL_TYPE_ADDMP
+                                        Call SendAnim(Index, SpellNum, n)
                                         MapNPC(GetPlayerMap(Index), n).MP = MapNPC(GetPlayerMap(Index), n).MP + Spell(SpellNum).Data1
 
                                     Case SPELL_TYPE_ADDSP
+                                        Call SendAnim(Index, SpellNum, n)
                                         MapNPC(GetPlayerMap(Index), n).SP = MapNPC(GetPlayerMap(Index), n).SP + Spell(SpellNum).Data1
                                 End Select
                                 Casted = False
@@ -2936,10 +2957,6 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                             Call BattleMsg(Index, "Could not cast spell!", BRIGHTRED, 0)
                         End If
                     End If
-                End If
-                If Casted = True Then
-                    Call SendDataToMap(GetPlayerMap(Index), POut.SpellAnimation & SEP_CHAR & SpellNum & SEP_CHAR & Spell(SpellNum).SpellAnim & SEP_CHAR & Spell(SpellNum).SpellTime & SEP_CHAR & Spell(SpellNum).SpellDone & SEP_CHAR & Index & SEP_CHAR & Player(Index).TargetType & SEP_CHAR & Player(Index).Target & SEP_CHAR & Player(Index).CastedSpell & SEP_CHAR & Spell(SpellNum).Big & END_CHAR)
-                    Call SendDataToMap(GetPlayerMap(Index), POut.Sound & SEP_CHAR & "magic" & SEP_CHAR & Spell(SpellNum).Sound & END_CHAR)
                 End If
             Next X
         Next Y
@@ -2964,16 +2981,20 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
 
                             Damage = (Int(GetPlayerMAGI(Index) / 4) + Spell(SpellNum).Data1) - GetPlayerProtection(n)
                             If Damage > 0 Then
+                                Call SendAnim(Index, SpellNum, n)
                                 Call AttackPlayer(Index, n, Damage)
                             Else
+                                Call SendAnim(Index, SpellNum, n)
                                 Call BattleMsg(Index, "The spell was to weak to hurt " & GetPlayerName(n) & "!", BRIGHTRED, 0)
                             End If
 
                         Case SPELL_TYPE_SUBMP
+                            Call SendAnim(Index, SpellNum, n)
                             Call SetPlayerMP(n, GetPlayerMP(n) - Spell(SpellNum).Data1)
                             Call SendMP(n)
 
                         Case SPELL_TYPE_SUBSP
+                            Call SendAnim(Index, SpellNum, n)
                             Call SetPlayerSP(n, GetPlayerSP(n) - Spell(SpellNum).Data1)
                             Call SendSP(n)
                     End Select
@@ -2987,12 +3008,15 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                         Select Case Spell(SpellNum).Type
 
                             Case SPELL_TYPE_ADDHP
+                                Call SendAnim(Index, SpellNum, n)
                                 Call SetPlayerHP(n, GetPlayerHP(n) + Spell(SpellNum).Data1)
 
                             Case SPELL_TYPE_ADDMP
+                                Call SendAnim(Index, SpellNum, n)
                                 Call SetPlayerMP(n, GetPlayerMP(n) + Spell(SpellNum).Data1)
 
                             Case SPELL_TYPE_ADDSP
+                                Call SendAnim(Index, SpellNum, n)
                                 Call SetPlayerSP(n, GetPlayerSP(n) + Spell(SpellNum).Data1)
                                 
                         End Select
@@ -3043,6 +3067,7 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                                     End If
                                 End If
                             End If
+                            Call SendAnim(Index, SpellNum, n)
                             Call AttackNpc(Index, n, Damage)
                             Call SendDataTo(Index, POut.DrawPlayerDamage & SEP_CHAR & Damage & SEP_CHAR & n & END_CHAR)
                         Else
@@ -3050,15 +3075,19 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
                         End If
 
                     Case SPELL_TYPE_ADDMP
+                        Call SendAnim(Index, SpellNum, n)
                         MapNPC(GetPlayerMap(Index), n).MP = MapNPC(GetPlayerMap(Index), n).MP + Spell(SpellNum).Data1
 
                     Case SPELL_TYPE_SUBMP
+                        Call SendAnim(Index, SpellNum, n)
                         MapNPC(GetPlayerMap(Index), n).MP = MapNPC(GetPlayerMap(Index), n).MP - Spell(SpellNum).Data1
 
                     Case SPELL_TYPE_ADDSP
+                        Call SendAnim(Index, SpellNum, n)
                         MapNPC(GetPlayerMap(Index), n).SP = MapNPC(GetPlayerMap(Index), n).SP + Spell(SpellNum).Data1
 
                     Case SPELL_TYPE_SUBSP
+                        Call SendAnim(Index, SpellNum, n)
                         MapNPC(GetPlayerMap(Index), n).SP = MapNPC(GetPlayerMap(Index), n).SP - Spell(SpellNum).Data1
                 End Select
 
@@ -3075,9 +3104,13 @@ Sub CastSpell(ByVal Index As Long, ByVal SpellSlot As Long)
     If Casted = True Then
         Player(Index).AttackTimer = GetTickCount
         Player(Index).CastedSpell = YES
-        Call SendDataToMap(GetPlayerMap(Index), POut.SpellAnimation & SEP_CHAR & SpellNum & SEP_CHAR & Spell(SpellNum).SpellAnim & SEP_CHAR & Spell(SpellNum).SpellTime & SEP_CHAR & Spell(SpellNum).SpellDone & SEP_CHAR & Index & SEP_CHAR & Player(Index).TargetType & SEP_CHAR & Player(Index).Target & SEP_CHAR & Player(Index).CastedSpell & SEP_CHAR & Spell(SpellNum).Big & END_CHAR)
-        Call SendDataToMap(GetPlayerMap(Index), POut.Sound & SEP_CHAR & "magic" & SEP_CHAR & Spell(SpellNum).Sound & END_CHAR)
     End If
+    
+End Sub
+
+Sub SendAnim(ByVal Index As Long, ByVal SpellNum As Long, ByVal Target As Long)
+    Call SendDataToMap(GetPlayerMap(Index), POut.SpellAnimation & SEP_CHAR & SpellNum & SEP_CHAR & Spell(SpellNum).SpellAnim & SEP_CHAR & Spell(SpellNum).SpellTime & SEP_CHAR & Spell(SpellNum).SpellDone & SEP_CHAR & Index & SEP_CHAR & Player(Index).TargetType & SEP_CHAR & Target & SEP_CHAR & Player(Index).CastedSpell & SEP_CHAR & Spell(SpellNum).Big & END_CHAR)
+    Call SendDataToMap(GetPlayerMap(Index), POut.Sound & SEP_CHAR & "magic" & SEP_CHAR & Spell(SpellNum).Sound & END_CHAR)
 End Sub
 
 Function CanPlayerCriticalHit(ByVal Index As Long) As Boolean
